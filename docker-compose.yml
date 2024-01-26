@@ -1,0 +1,40 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: sh -c "npm run db:init && npm run start:dev"
+    ports:
+      - "${PORT}:${PORT}"
+    env_file:
+      - .env
+    working_dir: /build
+    depends_on:
+      - db
+    volumes:
+      - ./src:/build/src
+    networks:
+      - bookstore_network
+
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: "${DB_USER}"
+      POSTGRES_PASSWORD: "${DB_PASSWORD}"
+      POSTGRES_DB: "${DB_NAME}"
+    env_file:
+      - .env
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - bookstore_network
+
+volumes:
+  postgres_data:
+
+networks:
+  bookstore_network:

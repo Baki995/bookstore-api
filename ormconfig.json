@@ -1,0 +1,19 @@
+{
+  "type": "postgres",
+  "host": "db",
+  "port": 5432,
+  "username": "bojan",
+  "password": "bojan",
+  "database": "bookstore",
+  "synchronize": false,
+  "logging": true,
+  "migrationsRun": false,
+  "entities": ["src/entities/*.ts"],
+  "migrations": ["src/migration/*.ts"],
+  "subscribers": ["src/subscriber/*.ts"],
+  "cli": {
+    "entitiesDir": "src/entities",
+    "migrationsDir": "src/migration",
+    "subscribersDir": "src/subscriber"
+  }
+}
