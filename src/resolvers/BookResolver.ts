@@ -13,7 +13,7 @@ export class BookResolver {
   }
 
   @Query(() => BookPaginated)
-  async books (@Arg('page', { defaultValue: 1 }) page: number): Promise<any> {
+  async books (@Arg('page', { defaultValue: 1 }) page: number): Promise<BookPaginated> {
     return await this.bookService.getBooks(page)
   }
 
@@ -23,7 +23,7 @@ export class BookResolver {
   }
 
   @Mutation(() => Boolean)
-  async deleteBook (@Arg('data') { isbn }: DeleteBookDto): Promise<any> {
+  async deleteBook (@Arg('data') { isbn }: DeleteBookDto): Promise<boolean> {
     return await this.bookService.deleteBook(isbn)
   }
 }
