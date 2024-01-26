@@ -29,16 +29,15 @@ export class BookService {
     return await this.bookRepository.findOne({ where: { isbn: data.isbn } })
   }
 
-  async deleteBook (isbn: string): Promise<boolean> {
+  async deleteBook (isbn: string): Promise<Book | null> {
     const book = await this.bookRepository.findOne({ where: { isbn } })
     if (book !== null) {
       if (book.quantityInStock) {
         await this.bookRepository.update({ id: book.id }, { quantityInStock: book.quantityInStock - 1 });
+        return await this.bookRepository.findOne({ where: { isbn } })
       } else {
         throw new Error('Currently out of stock')
       }
-
-      return true
     }
     throw new Error('Book does not exist')
   }

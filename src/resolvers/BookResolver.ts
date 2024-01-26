@@ -22,8 +22,8 @@ export class BookResolver {
     return await this.bookService.addBook(book)
   }
 
-  @Mutation(() => Boolean)
-  async deleteBook (@Arg('data') { isbn }: DeleteBookDto): Promise<boolean> {
+  @Mutation(() => Book)
+  async deleteBook (@Arg('data') { isbn }: DeleteBookDto): Promise<Book | null> {
     return await this.bookService.deleteBook(isbn)
   }
 }
